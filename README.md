@@ -1,32 +1,34 @@
-# Simple Web App (Home & About)
+# Simple Web App with About Page and Stylesheet
 
 ## Overview
-This is a minimal single-page web app that includes:
-- A Home page
-- A new About page
-- A CSS stylesheet (inline) derived from the provided styles.css
+This is a lightweight multi-page web app consisting of:
+- Home page (index.html)
+- About page content (about.html, loaded dynamically or opened directly)
+- A shared stylesheet (styles.css) for consistent appearance
 
-Navigation is hash-based, so the app works entirely as a single `index.html` without a build step or server.
+The app uses hash-based routing to dynamically load the About page content from about.html into the main layout, keeping styling and navigation consistent. A direct link to open about.html as a standalone page is also provided.
 
 ## Setup
-No installation is required.
+1. Ensure the following files are in the same directory:
+   - index.html (this file)
+   - about.html (provided in repo)
+   - styles.css (provided in repo)
+   - LICENSE (if not present, add one appropriate for your project)
 
-Options to run:
-- Double-click `index.html` to open it in your browser.
-- Or serve it locally (recommended for consistent hash routing):
-  - Using Python 3: `python -m http.server 8080`
-  - Using Node (http-server): `npx http-server -p 8080`
+2. Serve the directory with a static web server to enable dynamic loading via fetch:
+   - Using Node.js: npx serve .
+   - Using Python 3: python -m http.server 8000
+   - Or open with any static server of your choice
 
-Then open http://localhost:8080 in your browser.
+Note: Opening index.html directly from the file system may prevent fetch from loading about.html due to browser security policies. Using a local server is recommended.
 
 ## Usage
-- Click “Home” or “About” in the navigation bar to switch between views.
-- You can deep link directly:
-  - Home: `#/`
-  - About: `#/about`
-- The stylesheet is embedded in a `<style>` block to keep the app self-contained, using the provided `styles.css` baseline:
-  - `body { font-family: Arial; background-color: #f0f0f0; }`
+- Visit the Home page at http://localhost:PORT/index.html
+- Click “About” in the navigation to view the About content within the main layout.
+- Alternatively, click “Open About (standalone)” to open about.html directly in a new tab.
 
-Notes:
-- The About page content matches the provided `about.html` snippet.
-- Since this deliverable is constrained to a single HTML file output, the CSS is inlined for portability.
+## Improvements from Previous Version (Round 2 -> Round 3)
+- Added a dedicated About page (about.html) and integrated it via a simple client-side router.
+- Introduced an external CSS stylesheet (styles.css) for consistent typography and background styling across pages.
+- Implemented a top navigation bar with active-link indication and accessibility improvements (skip link, focus management, aria-current).
+- Provided a graceful fallback to open About as a standalone page if dynamic loading is blocked.
