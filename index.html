@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Hello World App</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --fg: #e2e8f0;
+      --accent: #38bdf8;
+    }
+    * { box-sizing: border-box; }
+    html, body {
+      height: 100%;
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      background: radial-gradient(1200px 800px at 80% -20%, rgba(56,189,248,0.2), transparent 60%),
+                  radial-gradient(1000px 600px at -10% 110%, rgba(99,102,241,0.18), transparent 60%),
+                  var(--bg);
+      color: var(--fg);
+    }
+    .center {
+      min-height: 100%;
+      display: grid;
+      place-items: center;
+      padding: 2rem;
+    }
+    .card {
+      text-align: center;
+      padding: 2.5rem 3rem;
+      border-radius: 16px;
+      background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(226,232,240,0.08);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.35), inset 0 0 0 1px rgba(255,255,255,0.02);
+    }
+    h1 {
+      margin: 0 0 0.5rem;
+      font-size: clamp(2rem, 6vw, 3.5rem);
+      letter-spacing: 0.02em;
+    }
+    p {
+      margin: 0;
+      opacity: 0.85;
+    }
+    .accent {
+      color: var(--accent);
+      text-shadow: 0 2px 16px rgba(56,189,248,0.35);
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      .pulse {
+        animation: pulse 3s ease-in-out infinite;
+      }
+      @keyframes pulse {
+        0%, 100% { transform: scale(1); filter: saturate(1); }
+        50% { transform: scale(1.01); filter: saturate(1.2); }
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="center">
+    <section class="card pulse" role="region" aria-label="Hello World message">
+      <h1><span class="accent">Hello</span> World</h1>
+      <p>Welcome to your simple web app.</p>
+    </section>
+  </main>
+</body>
+</html>
