@@ -1,428 +1,213 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="A tiny single-page web app with Home and a new About page, styled with an embedded CSS stylesheet." />
-  <title>Starter SPA • Home</title>
-
-  <!-- Embedded CSS stylesheet -->
+  <title>Simple Web App - Home & About</title>
+  <meta name="description" content="A simple web app with Home and About pages and a CSS stylesheet." />
   <style>
-    :root{
-      --bg: #0f172a;           /* slate-900 */
-      --panel: #111827;        /* gray-900 */
-      --panel-2: #0b1220;      /* darker panel */
-      --text: #e5e7eb;         /* gray-200 */
-      --muted: #9ca3af;        /* gray-400 */
-      --brand: #38bdf8;        /* sky-400 */
-      --brand-2: #22d3ee;      /* cyan-400 */
-      --accent: #a78bfa;       /* violet-400 */
-      --ok: #34d399;           /* emerald-400 */
-      --warn: #f59e0b;         /* amber-500 */
-      --radius: 14px;
-      --shadow: 0 10px 30px rgba(0,0,0,.35);
-    }
-
-    * { box-sizing: border-box; }
-    html, body { height: 100%; }
+    /* Base stylesheet (from provided styles.css) */
     body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
       margin: 0;
-      background: radial-gradient(1200px 600px at 10% -10%, #1f2937 0%, transparent 60%),
-                  radial-gradient(1400px 700px at 110% -20%, #0b1220 0%, transparent 55%),
-                  var(--bg);
-      color: var(--text);
-      font: 16px/1.55 system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", sans-serif;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
+      color: #222;
+      line-height: 1.5;
     }
 
-    .skip-link {
-      position: absolute;
-      left: -9999px;
-      top: auto;
-      width: 1px;
-      height: 1px;
-      overflow: hidden;
-    }
-    .skip-link:focus {
-      position: fixed;
-      left: 12px;
-      top: 12px;
-      width: auto;
-      height: auto;
-      padding: 8px 12px;
-      background: var(--brand);
-      color: #001018;
-      border-radius: 8px;
-      z-index: 9999;
-      outline: none;
-      box-shadow: var(--shadow);
+    /* App styling */
+    .app {
+      display: flex;
+      min-height: 100dvh;
+      flex-direction: column;
     }
 
-    header.site-header {
+    header {
+      background: #ffffff;
+      border-bottom: 1px solid #e5e5e5;
       position: sticky;
       top: 0;
-      backdrop-filter: saturate(1.2) blur(10px);
-      background: linear-gradient(180deg, rgba(15, 23, 42, 0.85), rgba(15, 23, 42, 0.6));
-      border-bottom: 1px solid rgba(148,163,184,.15);
-      z-index: 100;
+      z-index: 10;
     }
-    .header-inner {
+
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 16px;
+    }
+
+    .brand {
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 14px 18px;
-    }
-    .brand {
-      display: inline-flex;
-      align-items: center;
       gap: 10px;
-      font-weight: 700;
-      letter-spacing: 0.2px;
     }
-    .brand .logo {
+
+    .brand-logo {
       width: 28px;
       height: 28px;
-      border-radius: 9px;
-      background: radial-gradient(180px 180px at -20% 120%, var(--brand) 0%, transparent 70%),
-                  radial-gradient(90px 90px at 120% -20%, var(--accent) 0%, transparent 70%),
-                  linear-gradient(135deg, #0ea5e9 0%, #7c3aed 100%);
-      box-shadow:
-        inset 0 0 0 2px rgba(255,255,255,.08),
-        0 8px 20px rgba(56, 189, 248, .15);
-      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 6px;
+      background: linear-gradient(135deg, #4f46e5, #06b6d4);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+      flex: 0 0 auto;
     }
-    nav a {
-      color: var(--text);
+
+    nav {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      margin-top: 10px;
+      flex-wrap: wrap;
+    }
+
+    .nav-link {
       text-decoration: none;
+      color: #333;
       padding: 8px 12px;
-      border-radius: 10px;
+      border-radius: 8px;
       border: 1px solid transparent;
-      transition: background .2s ease, color .2s ease, border-color .2s ease, transform .06s ease;
-      opacity: 0.95;
+      transition: background .2s ease, color .2s ease, border-color .2s ease;
+      font-weight: 600;
     }
-    nav a:hover {
-      background: rgba(148, 163, 184, .08);
-      border-color: rgba(148,163,184,.2);
+
+    .nav-link:hover {
+      background: #f7f7f7;
+      border-color: #e5e5e5;
     }
-    nav a.active, nav a[aria-current="page"] {
-      color: #001018;
-      background: linear-gradient(180deg, var(--brand), var(--brand-2));
-      border-color: rgba(148,163,184,.25);
-      box-shadow: 0 8px 20px rgba(34, 211, 238, 0.25);
+
+    .nav-link.active {
+      color: #ffffff;
+      background: #4f46e5;
+      border-color: #4f46e5;
+      box-shadow: 0 2px 8px rgba(79,70,229,0.25);
     }
 
     main {
-      display: block;
-      max-width: 1100px;
-      margin: 24px auto;
-      padding: 0 18px 40px;
-    }
-
-    .hero {
-      display: grid;
-      grid-template-columns: 1.2fr 1fr;
-      gap: 26px;
-      align-items: stretch;
-    }
-
-    .panel {
-      background: linear-gradient(180deg, rgba(17,24,39,.7), rgba(11,18,32,.85));
-      border: 1px solid rgba(148,163,184,.15);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      overflow: clip;
-    }
-    .panel .panel-body {
-      padding: 22px 22px;
-    }
-    .panel .panel-footer {
-      padding: 14px 18px;
-      border-top: 1px solid rgba(148,163,184,.12);
-      background: linear-gradient(180deg, rgba(2,6,23,.6), rgba(2,6,23,.35));
-      display: flex;
-      gap: 12px;
-      align-items: center;
-      flex-wrap: wrap;
-    }
-
-    .title {
-      font-size: clamp(28px, 2.6vw + 12px, 44px);
-      line-height: 1.1;
-      margin: 0 0 10px;
-      letter-spacing: .2px;
-    }
-    .subtitle {
-      margin: 0;
-      color: var(--muted);
-      font-size: 1rem;
-    }
-
-    .grid {
-      display: grid;
-      gap: 14px;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+      flex: 1;
     }
 
     .card {
-      background: linear-gradient(180deg, rgba(2,6,23,.6), rgba(2,6,23,.35));
-      border: 1px solid rgba(148,163,184,.14);
+      background: #fff;
+      border: 1px solid #eaeaea;
       border-radius: 12px;
-      padding: 16px;
-    }
-    .card h3 {
-      margin: 0 0 6px;
-      font-size: 1.05rem;
-    }
-    .card p {
-      margin: 0;
-      color: var(--muted);
+      padding: 20px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.04);
     }
 
-    .btn {
-      appearance: none;
-      border: 1px solid rgba(148,163,184,.22);
-      background: linear-gradient(180deg, rgba(2,6,23,.5), rgba(2,6,23,.2));
-      color: var(--text);
-      padding: 10px 14px;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: transform .06s ease, background .2s ease, border-color .2s ease, color .2s ease, box-shadow .2s ease;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
+    h1, h2 {
+      margin: 0 0 12px 0;
     }
-    .btn:hover {
-      border-color: rgba(148,163,184,.35);
-      background: rgba(148,163,184,.08);
-    }
-    .btn.primary {
-      color: #001018;
-      background: linear-gradient(180deg, var(--brand), var(--brand-2));
-      border-color: rgba(148,163,184,.25);
-      box-shadow: 0 8px 20px rgba(34, 211, 238, 0.25);
-    }
-    .btn.primary:hover {
-      transform: translateY(-1px);
+
+    p {
+      margin: 0 0 12px 0;
     }
 
     .muted {
-      color: var(--muted);
+      color: #666;
     }
 
     footer {
-      max-width: 1100px;
-      margin: 0 auto 40px;
-      padding: 0 18px;
-      color: var(--muted);
-    }
-    footer .footer-inner {
-      border-top: 1px solid rgba(148,163,184,.15);
-      padding-top: 14px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-      flex-wrap: wrap;
+      background: #ffffffcc;
+      border-top: 1px solid #e5e5e5;
     }
 
-    code, pre {
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-    }
-    code.inline {
-      background: rgba(148,163,184,.12);
-      border: 1px solid rgba(148,163,184,.22);
+    code {
+      background: #f7f7f9;
+      border: 1px solid #eee;
       padding: 2px 6px;
-      border-radius: 8px;
-      color: #eaffff;
+      border-radius: 6px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-size: .95em;
     }
 
-    @media (max-width: 900px) {
-      .hero { grid-template-columns: 1fr; }
-      nav a { padding: 8px 10px; }
-    }
-    @media (prefers-reduced-motion: reduce) {
-      * { transition: none !important; animation: none !important; }
+    .sr-only {
+      position: absolute !important;
+      width: 1px; height: 1px;
+      padding: 0; margin: -1px;
+      overflow: hidden; clip: rect(0, 0, 0, 0);
+      border: 0;
+      white-space: nowrap;
     }
   </style>
 </head>
 <body>
-  <a href="#main" class="skip-link">Skip to content</a>
-
-  <header class="site-header">
-    <div class="header-inner">
-      <div class="brand">
-        <div class="logo" aria-hidden="true"></div>
-        <span>Starter SPA</span>
+  <div class="app">
+    <header>
+      <div class="container">
+        <div class="brand">
+          <div class="brand-logo" aria-hidden="true"></div>
+          <div>
+            <strong>Simple Web App</strong>
+            <div class="muted" style="font-size: 0.9em;">Home & About with a CSS stylesheet</div>
+          </div>
+        </div>
+        <nav aria-label="Primary">
+          <a class="nav-link" href="#/" data-route="/">Home</a>
+          <a class="nav-link" href="#/about" data-route="/about">About</a>
+        </nav>
       </div>
-      <nav aria-label="Primary">
-        <a id="nav-home" href="#/" data-route="/">Home</a>
-        <a id="nav-about" href="#/about" data-route="about">About</a>
-      </nav>
-    </div>
-  </header>
+    </header>
 
-  <main id="main" tabindex="-1" aria-live="polite" aria-busy="false"></main>
+    <main id="app" class="container" tabindex="-1" aria-live="polite" aria-busy="false">
+      <!-- Content injected here -->
+    </main>
 
-  <footer>
-    <div class="footer-inner">
-      <div>© <span id="year"></span> Starter SPA</div>
-      <div>
-        <span class="muted">Built with vanilla HTML/CSS/JS</span>
+    <footer>
+      <div class="container">
+        <p class="muted">© <span id="year"></span> Simple Web App</p>
       </div>
-    </div>
-  </footer>
-
-  <noscript>
-    <style>
-      main noscript { display: block; }
-    </style>
-    <div class="panel" style="max-width: 1100px; margin: 18px auto; padding: 16px;">
-      <strong>JavaScript is disabled.</strong>
-      <p class="muted">This site is a small single-page app that needs JavaScript to switch between Home and the new About page. Enable JavaScript, or visit the About section at the top navigation.</p>
-    </div>
-  </noscript>
+    </footer>
+  </div>
 
   <script>
-    // Tiny client-side router for a single-page app (Home + About)
+    // Simple hash-based router
+    const app = document.getElementById('app');
+    const navLinks = Array.from(document.querySelectorAll('.nav-link'));
+
     const routes = {
-      "": homeView,
-      "/": homeView,
-      "about": aboutView,
-      "/about": aboutView
+      '/': () => `
+        <section class="card">
+          <h1>Welcome</h1>
+          <p>This is the home page of the simple web app.</p>
+          <p>Use the navigation to visit the <a href="#/about">About</a> page.</p>
+          <hr />
+          <p class="muted">Tip: You can deep link directly to <code>#/about</code>.</p>
+        </section>
+      `,
+      '/about': () => `
+        <section class="card">
+          <h1>About Page</h1>
+          <p>This is the about page.</p>
+          <hr />
+          <p class="muted">This page content is based on the provided about.html attachment.</p>
+        </section>
+      `
     };
 
-    function getPath() {
-      const hash = window.location.hash || "#/";
-      // Normalize: "#/about" -> "about", "#/" -> "/"
-      return hash.replace(/^#/, "").replace(/^\/?/, match => match ? "/" : "");
-    }
-
-    function setActiveNav(path) {
-      const home = document.getElementById("nav-home");
-      const about = document.getElementById("nav-about");
-      for (const el of [home, about]) {
-        el.classList.remove("active");
-        el.removeAttribute("aria-current");
-      }
-      if (path === "/" || path === "") {
-        home.classList.add("active");
-        home.setAttribute("aria-current", "page");
-      } else if (path.includes("about")) {
-        about.classList.add("active");
-        about.setAttribute("aria-current", "page");
-      }
-    }
-
-    function homeView() {
-      document.title = "Starter SPA • Home";
-      return `
-        <section class="hero">
-          <div class="panel">
-            <div class="panel-body">
-              <h1 class="title">Welcome to your Starter SPA</h1>
-              <p class="subtitle">
-                This web app now includes a dedicated About page and a cohesive CSS stylesheet.
-                Navigate using the links above to see it in action.
-              </p>
-            </div>
-            <div class="panel-footer">
-              <a class="btn primary" href="#/about">Go to About</a>
-              <a class="btn" href="." onclick="location.reload();return false">Reload</a>
-              <span class="muted">Hash-based navigation, no build step.</span>
-            </div>
-          </div>
-
-          <div class="grid">
-            <div class="card">
-              <h3>What’s inside?</h3>
-              <p>Vanilla HTML, a small router in JS, and an embedded CSS stylesheet for styling.</p>
-            </div>
-            <div class="card">
-              <h3>Fast and lightweight</h3>
-              <p>No dependencies or frameworks required. Just open index.html.</p>
-            </div>
-            <div class="card">
-              <h3>Accessible defaults</h3>
-              <p>Skip link, semantic regions, focusable main, and ARIA updates on navigation.</p>
-            </div>
-            <div class="card">
-              <h3>Responsive layout</h3>
-              <p>Adapts from a two-column hero to a stacked layout on smaller screens.</p>
-            </div>
-          </div>
-        </section>
-      `;
-    }
-
-    function aboutView() {
-      document.title = "Starter SPA • About";
-      return `
-        <section class="panel">
-          <div class="panel-body">
-            <h1 class="title">About this app</h1>
-            <p class="subtitle">
-              This is a minimal single-page application demonstrating client-side routing with a
-              newly added About page and a centralized CSS stylesheet for styling.
-            </p>
-            <div class="grid" style="margin-top: 16px;">
-              <div class="card">
-                <h3>Features</h3>
-                <ul class="muted" style="margin: 6px 0 0 18px;">
-                  <li>Home and About views with hash-based routing</li>
-                  <li>Embedded CSS stylesheet with a modern, responsive design</li>
-                  <li>Accessible navigation and live region updates</li>
-                  <li>No build tools or dependencies required</li>
-                </ul>
-              </div>
-              <div class="card">
-                <h3>How it works</h3>
-                <p>
-                  The router reads <code class="inline">location.hash</code> and renders content in
-                  the main region. Navigation state is reflected with <code class="inline">aria-current</code>.
-                </p>
-              </div>
-              <div class="card">
-                <h3>Quick start</h3>
-                <p>Open <code class="inline">index.html</code> in your browser and use the nav to switch pages.</p>
-              </div>
-              <div class="card">
-                <h3>Deep linking</h3>
-                <p>Bookmark or share <code class="inline">#/about</code> to jump straight to this page.</p>
-              </div>
-            </div>
-          </div>
-          <div class="panel-footer">
-            <a class="btn" href="#/">Back to Home</a>
-            <span class="muted">You’re viewing: About</span>
-          </div>
-        </section>
-      `;
-    }
-
-    function render() {
-      const main = document.getElementById("main");
-      const path = getPath();
-      const view = routes[path] || routes[path.replace(/^\//, "")] || homeView;
-      document.body.setAttribute("data-route", path || "/");
-      main.setAttribute("aria-busy", "true");
-      main.innerHTML = view();
-      setActiveNav(path);
-      // Focus main for accessibility after render
-      requestAnimationFrame(() => {
-        main.focus({ preventScroll: false });
-        main.setAttribute("aria-busy", "false");
+    function setActive(route) {
+      navLinks.forEach(link => {
+        const isActive = link.getAttribute('data-route') === route;
+        link.classList.toggle('active', isActive);
+        if (isActive) link.setAttribute('aria-current', 'page');
+        else link.removeAttribute('aria-current');
       });
     }
 
-    window.addEventListener("hashchange", render);
-    window.addEventListener("DOMContentLoaded", () => {
-      // Initial render and year stamp
-      document.getElementById("year").textContent = new Date().getFullYear();
+    function render() {
+      const hash = location.hash || '#/';
+      const path = hash.replace(/^#/, '');
+      const route = routes[path] ? path : '/';
+      setActive(route);
+      app.setAttribute('aria-busy', 'true');
+      app.innerHTML = routes[route]();
+      app.setAttribute('aria-busy', 'false');
+      // Move focus for accessibility
+      requestAnimationFrame(() => app.focus());
+    }
+
+    window.addEventListener('hashchange', render);
+    window.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('year').textContent = new Date().getFullYear();
+      if (!location.hash) location.hash = '#/';
       render();
     });
   </script>
