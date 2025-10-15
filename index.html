@@ -1,70 +1,188 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Hello World App</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hello World Web App</title>
   <style>
     :root {
       --bg: #0f172a;
-      --fg: #e2e8f0;
-      --accent: #38bdf8;
+      --card: #111827;
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --accent: #60a5fa;
+      --accent-strong: #3b82f6;
+      --ring: rgba(96, 165, 250, 0.35);
     }
-    * { box-sizing: border-box; }
+
+    * {
+      box-sizing: border-box;
+    }
+
     html, body {
       height: 100%;
       margin: 0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Apple Color Emoji", "Segoe UI Emoji";
-      background: radial-gradient(1200px 800px at 80% -20%, rgba(56,189,248,0.2), transparent 60%),
-                  radial-gradient(1000px 600px at -10% 110%, rgba(99,102,241,0.18), transparent 60%),
+      background: radial-gradient(1200px 600px at 80% 0%, rgba(59,130,246,0.12), transparent 50%),
+                  radial-gradient(900px 500px at 10% 20%, rgba(34,197,94,0.10), transparent 45%),
                   var(--bg);
-      color: var(--fg);
+      color: var(--text);
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
-    .center {
-      min-height: 100%;
+
+    .wrap {
+      min-height: 100svh;
       display: grid;
       place-items: center;
-      padding: 2rem;
+      padding: 24px;
     }
+
     .card {
-      text-align: center;
-      padding: 2.5rem 3rem;
+      width: 100%;
+      max-width: 560px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+      background-color: var(--card);
+      border: 1px solid rgba(255,255,255,0.08);
       border-radius: 16px;
-      background: rgba(15, 23, 42, 0.6);
-      backdrop-filter: blur(8px);
-      border: 1px solid rgba(226,232,240,0.08);
-      box-shadow: 0 10px 30px rgba(0,0,0,0.35), inset 0 0 0 1px rgba(255,255,255,0.02);
+      box-shadow:
+        0 15px 40px rgba(0,0,0,0.35),
+        inset 0 1px 0 rgba(255,255,255,0.05);
+      padding: 28px;
+      transform: translateZ(0);
     }
-    h1 {
-      margin: 0 0 0.5rem;
-      font-size: clamp(2rem, 6vw, 3.5rem);
-      letter-spacing: 0.02em;
-    }
-    p {
+
+    .title {
       margin: 0;
-      opacity: 0.85;
+      font-size: clamp(28px, 4vw, 36px);
+      letter-spacing: -0.02em;
     }
-    .accent {
-      color: var(--accent);
-      text-shadow: 0 2px 16px rgba(56,189,248,0.35);
+
+    .subtitle {
+      margin: 8px 0 20px;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.5;
     }
-    @media (prefers-reduced-motion: no-preference) {
-      .pulse {
-        animation: pulse 3s ease-in-out infinite;
-      }
-      @keyframes pulse {
-        0%, 100% { transform: scale(1); filter: saturate(1); }
-        50% { transform: scale(1.01); filter: saturate(1.2); }
-      }
+
+    .actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      appearance: none;
+      border: 1px solid rgba(96,165,250,0.35);
+      background: linear-gradient(180deg, rgba(59,130,246,0.18), rgba(59,130,246,0.14));
+      color: white;
+      padding: 10px 16px;
+      font-weight: 600;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: transform 120ms ease, box-shadow 120ms ease, background-color 120ms ease, border-color 120ms ease;
+      box-shadow:
+        0 6px 18px rgba(59,130,246,0.25),
+        inset 0 1px 0 rgba(255,255,255,0.06);
+    }
+    .btn:hover {
+      transform: translateY(-1px);
+      box-shadow:
+        0 10px 24px rgba(59,130,246,0.32),
+        inset 0 1px 0 rgba(255,255,255,0.08);
+      border-color: rgba(96,165,250,0.55);
+    }
+    .btn:active {
+      transform: translateY(0);
+      box-shadow:
+        0 6px 18px rgba(59,130,246,0.25),
+        inset 0 1px 0 rgba(255,255,255,0.03);
+    }
+    .btn:focus-visible {
+      outline: none;
+      box-shadow:
+        0 0 0 4px var(--ring),
+        0 10px 24px rgba(59,130,246,0.32),
+        inset 0 1px 0 rgba(255,255,255,0.08);
+    }
+
+    .note {
+      margin-top: 16px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.12), transparent);
+      margin: 18px 0;
+      border-radius: 999px;
+    }
+
+    .monospace {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 0.95em;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08);
+      padding: 2px 6px;
+      border-radius: 6px;
+    }
+
+    footer {
+      margin-top: 10px;
+      font-size: 12px;
+      color: var(--muted);
+      text-align: center;
     }
   </style>
 </head>
 <body>
-  <main class="center">
-    <section class="card pulse" role="region" aria-label="Hello World message">
-      <h1><span class="accent">Hello</span> World</h1>
-      <p>Welcome to your simple web app.</p>
+  <main class="wrap">
+    <section class="card" aria-labelledby="app-title">
+      <h1 id="app-title" class="title">Hello World</h1>
+      <p class="subtitle">
+        A tiny, zero-dependency web app. Click the button below to see a browser alert.
+      </p>
+
+      <div class="actions">
+        <button id="alertButton" class="btn" type="button" aria-label="Show hello alert">
+          Show Alert
+        </button>
+      </div>
+
+      <div class="divider" role="presentation"></div>
+
+      <p class="note">
+        Tip: You can also press <span class="monospace">Enter</span> when this button is focused.
+      </p>
+
+      <footer>
+        Runs entirely in your browser.
+      </footer>
     </section>
   </main>
+
+  <script>
+    (function () {
+      const btn = document.getElementById('alertButton');
+
+      function showAlert() {
+        // Keep the message simple and friendly
+        alert('Hello from your web app!');
+      }
+
+      // Click handler
+      btn.addEventListener('click', showAlert);
+
+      // Keyboard activation support (Enter/Space) is native to <button>,
+      // but we keep a defensive listener for completeness on older/edge cases.
+      btn.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          showAlert();
+        }
+      });
+    })();
+  </script>
 </body>
 </html>
