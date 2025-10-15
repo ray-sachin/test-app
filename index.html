@@ -1,215 +1,130 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Simple Web App - Home & About</title>
-  <meta name="description" content="A simple web app with Home and About pages and a CSS stylesheet." />
+  <title>Simple Web App - Home</title>
+  <link rel="stylesheet" href="styles.css" />
   <style>
-    /* Base stylesheet (from provided styles.css) */
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f0f0f0;
-      margin: 0;
-      color: #222;
-      line-height: 1.5;
-    }
-
-    /* App styling */
-    .app {
-      display: flex;
-      min-height: 100dvh;
-      flex-direction: column;
-    }
-
-    header {
-      background: #ffffff;
-      border-bottom: 1px solid #e5e5e5;
-      position: sticky;
-      top: 0;
-      z-index: 10;
-    }
-
-    .container {
-      max-width: 960px;
-      margin: 0 auto;
-      padding: 16px;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .brand-logo {
-      width: 28px;
-      height: 28px;
-      border-radius: 6px;
-      background: linear-gradient(135deg, #4f46e5, #06b6d4);
-      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-      flex: 0 0 auto;
-    }
-
-    nav {
-      display: flex;
-      gap: 12px;
-      align-items: center;
-      margin-top: 10px;
-      flex-wrap: wrap;
-    }
-
-    .nav-link {
-      text-decoration: none;
-      color: #333;
-      padding: 8px 12px;
-      border-radius: 8px;
-      border: 1px solid transparent;
-      transition: background .2s ease, color .2s ease, border-color .2s ease;
-      font-weight: 600;
-    }
-
-    .nav-link:hover {
-      background: #f7f7f7;
-      border-color: #e5e5e5;
-    }
-
-    .nav-link.active {
-      color: #ffffff;
-      background: #4f46e5;
-      border-color: #4f46e5;
-      box-shadow: 0 2px 8px rgba(79,70,229,0.25);
-    }
-
-    main {
-      flex: 1;
-    }
-
-    .card {
-      background: #fff;
-      border: 1px solid #eaeaea;
-      border-radius: 12px;
-      padding: 20px;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.04);
-    }
-
-    h1, h2 {
-      margin: 0 0 12px 0;
-    }
-
-    p {
-      margin: 0 0 12px 0;
-    }
-
-    .muted {
-      color: #666;
-    }
-
-    footer {
-      background: #ffffffcc;
-      border-top: 1px solid #e5e5e5;
-    }
-
-    code {
-      background: #f7f7f9;
-      border: 1px solid #eee;
-      padding: 2px 6px;
-      border-radius: 6px;
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
-      font-size: .95em;
-    }
-
-    .sr-only {
-      position: absolute !important;
-      width: 1px; height: 1px;
-      padding: 0; margin: -1px;
-      overflow: hidden; clip: rect(0, 0, 0, 0);
-      border: 0;
-      white-space: nowrap;
-    }
+    /* Minimal structural enhancements; theme comes from styles.css */
+    :root { --accent: #0d6efd; --text: #222; }
+    body { color: var(--text); margin: 0; }
+    a { color: var(--accent); text-decoration: none; }
+    a:focus, a:hover { text-decoration: underline; }
+    header { background: #fff; border-bottom: 1px solid #ddd; position: sticky; top: 0; z-index: 10; }
+    .container { max-width: 960px; margin: 0 auto; padding: 1rem; }
+    nav { display: flex; gap: 1rem; align-items: center; }
+    nav a { padding: .5rem .75rem; border-radius: .375rem; }
+    nav a.active { background: #e7f1ff; }
+    main { min-height: 60vh; padding: 2rem 1rem; }
+    footer { border-top: 1px solid #ddd; background: #fff; }
+    .hero { background: #fff; border: 1px solid #e5e5e5; border-radius: 8px; padding: 1.25rem; }
+    .muted { color: #555; }
+    .sr-only { position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
+    .top-actions { display: flex; gap: .5rem; flex-wrap: wrap; margin-top: .75rem; }
+    .btn { display: inline-block; padding: .5rem .75rem; border-radius: .375rem; border: 1px solid #ccc; background: #fafafa; }
+    .btn:hover { background: #f3f3f3; }
   </style>
 </head>
 <body>
-  <div class="app">
-    <header>
-      <div class="container">
-        <div class="brand">
-          <div class="brand-logo" aria-hidden="true"></div>
-          <div>
-            <strong>Simple Web App</strong>
-            <div class="muted" style="font-size: 0.9em;">Home & About with a CSS stylesheet</div>
-          </div>
-        </div>
-        <nav aria-label="Primary">
-          <a class="nav-link" href="#/" data-route="/">Home</a>
-          <a class="nav-link" href="#/about" data-route="/about">About</a>
-        </nav>
-      </div>
-    </header>
+  <a class="sr-only" href="#main">Skip to main content</a>
 
-    <main id="app" class="container" tabindex="-1" aria-live="polite" aria-busy="false">
-      <!-- Content injected here -->
-    </main>
+  <header role="banner">
+    <div class="container">
+      <nav aria-label="Primary">
+        <strong>My Web App</strong>
+        <a href="#/" id="nav-home" aria-current="page">Home</a>
+        <a href="#/about" id="nav-about">About</a>
+        <span class="muted" aria-hidden="true">|</span>
+        <a class="btn" href="about.html" target="_blank" rel="noopener">Open About (standalone)</a>
+      </nav>
+    </div>
+  </header>
 
-    <footer>
-      <div class="container">
-        <p class="muted">© <span id="year"></span> Simple Web App</p>
+  <main id="main" class="container" tabindex="-1">
+    <section class="hero" id="content">
+      <h1>Welcome</h1>
+      <p>This is the home page of a simple multi-page web app.</p>
+      <div class="top-actions">
+        <a class="btn" href="#/about">Read more on the About page</a>
       </div>
-    </footer>
-  </div>
+    </section>
+  </main>
+
+  <footer role="contentinfo">
+    <div class="container">
+      <p class="muted">© 2025 My Web App • Styled via styles.css</p>
+      <p class="muted">Tip: If links don’t load content, serve via a local web server (see README).</p>
+    </div>
+  </footer>
 
   <script>
-    // Simple hash-based router
-    const app = document.getElementById('app');
-    const navLinks = Array.from(document.querySelectorAll('.nav-link'));
-
+    // Simple hash-based router that loads about.html into <main> when needed.
     const routes = {
-      '/': () => `
-        <section class="card">
-          <h1>Welcome</h1>
-          <p>This is the home page of the simple web app.</p>
-          <p>Use the navigation to visit the <a href="#/about">About</a> page.</p>
-          <hr />
-          <p class="muted">Tip: You can deep link directly to <code>#/about</code>.</p>
-        </section>
-      `,
-      '/about': () => `
-        <section class="card">
-          <h1>About Page</h1>
-          <p>This is the about page.</p>
-          <hr />
-          <p class="muted">This page content is based on the provided about.html attachment.</p>
-        </section>
-      `
+      "/": async () => {
+        document.title = "Simple Web App - Home";
+        return `
+          <section class="hero">
+            <h1>Welcome</h1>
+            <p>This is the home page of a simple multi-page web app.</p>
+            <p>Use the navigation above to visit the About page, which is loaded from a separate file (about.html).</p>
+            <div class="top-actions">
+              <a class="btn" href="#/about">Go to About</a>
+              <a class="btn" href="about.html" target="_blank" rel="noopener">Open About (standalone)</a>
+            </div>
+          </section>
+        `;
+      },
+      "/about": async () => {
+        document.title = "Simple Web App - About";
+        try {
+          const res = await fetch("about.html", { credentials: "same-origin" });
+          if (!res.ok) throw new Error("Failed to load about.html");
+          const html = await res.text();
+          // Wrap the partial content with a section for consistent layout
+          return `<section class="hero">${html}</section>`;
+        } catch (err) {
+          console.error(err);
+          return `
+            <section class="hero">
+              <h1>About</h1>
+              <p>We couldn't load the About page dynamically. You can still open it directly:</p>
+              <p><a class="btn" href="about.html" target="_blank" rel="noopener">Open About (standalone)</a></p>
+              <p class="muted">Hint: Run a local server (see README) to enable dynamic loading.</p>
+            </section>
+          `;
+        }
+      }
     };
 
-    function setActive(route) {
-      navLinks.forEach(link => {
-        const isActive = link.getAttribute('data-route') === route;
-        link.classList.toggle('active', isActive);
-        if (isActive) link.setAttribute('aria-current', 'page');
-        else link.removeAttribute('aria-current');
-      });
+    function setActiveNav(path) {
+      document.querySelectorAll('nav a[aria-current="page"]').forEach(a => a.removeAttribute("aria-current"));
+      document.getElementById("nav-home").classList.remove("active");
+      document.getElementById("nav-about").classList.remove("active");
+
+      if (path === "/") {
+        document.getElementById("nav-home").setAttribute("aria-current", "page");
+        document.getElementById("nav-home").classList.add("active");
+      } else if (path === "/about") {
+        document.getElementById("nav-about").setAttribute("aria-current", "page");
+        document.getElementById("nav-about").classList.add("active");
+      }
     }
 
-    function render() {
-      const hash = location.hash || '#/';
-      const path = hash.replace(/^#/, '');
-      const route = routes[path] ? path : '/';
-      setActive(route);
-      app.setAttribute('aria-busy', 'true');
-      app.innerHTML = routes[route]();
-      app.setAttribute('aria-busy', 'false');
-      // Move focus for accessibility
-      requestAnimationFrame(() => app.focus());
+    async function router() {
+      const hash = location.hash.replace(/^#/, "");
+      const path = hash && hash !== "/" ? hash : "/";
+      const route = routes[path] || routes["/"];
+      setActiveNav(path);
+      const content = await route();
+      const el = document.getElementById("content");
+      el.outerHTML = `<section class="hero" id="content">${content}</section>`;
+      // Move focus to main for accessibility after navigation
+      document.getElementById("main").focus();
     }
 
-    window.addEventListener('hashchange', render);
-    window.addEventListener('DOMContentLoaded', () => {
-      document.getElementById('year').textContent = new Date().getFullYear();
-      if (!location.hash) location.hash = '#/';
-      render();
-    });
+    window.addEventListener("hashchange", router);
+    window.addEventListener("DOMContentLoaded", router);
   </script>
 </body>
 </html>
